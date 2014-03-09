@@ -64,6 +64,24 @@ MongoClient.connect('mongodb://127.0.0.1:27017/timechicken', function (err, db) 
       res.send(204);
     });
   });
+
+  // TimeSessions
+  app.get('/api/activities/:id/time-sessions', function (req, res) {
+    var id = ObjectID(req.params.id);
+    q.ninvoke(db.collection('activity'), 'findOne', id).then(function (activity) {
+      res.json(activity.timeSessions);
+    });
+  });
+
+  app.post('/api/activities/:id/time-sessions', function (req, res) {
+    console.log('post', req);
+    var id = ObjectID(req.params.id);
+    q.ninvoke(db.collection('activity'), 'findOne', id).then(function (activity) {
+      // console.log(activity.startTimeSession());
+
+      res.json(activity.timeSessions);
+    });
+  })
 });
 
 
